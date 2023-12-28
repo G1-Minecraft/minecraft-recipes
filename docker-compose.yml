@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  minecraft-db:
+    image: mariadb:10
+    ports:
+      - "8211:3306"
+    volumes:
+      - ./database/data:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=changeme
+      - MYSQL_DATABASE=minecraft
+    networks:
+      - minecraft
+    healthcheck:
+      test: "mysql -pchangeme -e 'SELECT 1'"
+      interval: 10s
+      timeout: 10s
+      retries: 12
+
+  minecraft-api:
+    image: minecraft-api
+    build:
+      context: minecraft-api
+      dockerfile: dockerfile
+      args:
+        - DATABASE_PASSWORD=changeme
+        - DATABASE_HOST=minecraft-db
+        - DATABASE_DB=minecraft
+        - APP_HOME=/home/minecraft-api
+    ports:
+      - "8210:80"
+    volumes:
+      - ./minecraft-api:/home/minecraft-api
+    networks:
+      - minecraft
+    depends_on:
+      minecraft-db:
+        condition: service_healthy
+
+networks:
+  minecraft:
