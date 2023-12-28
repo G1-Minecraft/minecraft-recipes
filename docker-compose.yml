@@ -30,8 +30,6 @@ services:
         - APP_HOME=/home/minecraft-api
     ports:
       - "8210:80"
-    volumes:
-      - ./minecraft-api:/home/minecraft-api
     networks:
       - minecraft
     depends_on:

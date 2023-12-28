@@ -27,11 +27,9 @@ RUN sed -ri -e 's!;extension=sodium!extension=sodium!g' /usr/local/etc/php/php.i
 
 #project files setup
 WORKDIR $APP_HOME
-COPY . .
 
 #composer setup
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 RUN chmod +x /usr/bin/composer
-RUN composer install
 
-CMD  apache2-foreground
+CMD apache2-foreground
