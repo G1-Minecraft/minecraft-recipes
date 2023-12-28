@@ -1,0 +1,19 @@
+name: Minecraft api
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./minecraft-api
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t minecraft-api .
