@@ -22,7 +22,7 @@ services:
     image: minecraft-api
     build:
       context: minecraft-api
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
       args:
         - DATABASE_PASSWORD=changeme
         - DATABASE_HOST=minecraft-db
@@ -35,6 +35,20 @@ services:
     depends_on:
       minecraft-db:
         condition: service_healthy
+
+  minecraft-front:
+    image: minecraft-front
+    build:
+      context: minecraft-front
+      dockerfile: Dockerfile
+      args:
+        - APP_HOME=/home/minecraft-front
+    ports:
+      - "8220:80"
+    networks:
+      - minecraft
+    depends_on:
+      - minecraft-api
 
 networks:
   minecraft:

@@ -31,5 +31,3 @@ WORKDIR $APP_HOME
 #composer setup
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 RUN chmod +x /usr/bin/composer
-
-CMD apache2-foreground

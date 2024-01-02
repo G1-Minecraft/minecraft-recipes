@@ -34,5 +34,3 @@ COPY . .
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 RUN chmod +x /usr/bin/composer
 RUN composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader
-
-CMD  apache2-foreground
