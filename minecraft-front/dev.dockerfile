@@ -4,8 +4,6 @@ ARG APP_HOME
 
 ENV APP_HOME=${APP_HOME:-'/home'}
 
-RUN npm install -g http-server
-
 WORKDIR $APP_HOME
 
-CMD [ "http-server", "dist", "-p", "80" ]
+CMD [ "npm", "run", "dev" ]
