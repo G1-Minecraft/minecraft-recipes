@@ -49,6 +49,19 @@ services:
       - minecraft
     depends_on:
       - minecraft-api
+      - minecraft-avatar
+
+  minecraft-avatar:
+    image: minecraft-avatar
+    build:
+      context: minecraft-avatar
+      dockerfile: Dockerfile
+      args:
+        - APP_HOME=/home/minecraft-avatar
+    ports:
+      - "8230:80"
+    networks:
+      - minecraft
 
 networks:
   minecraft:
