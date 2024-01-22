@@ -9,7 +9,11 @@ export default defineConfig({
     vue(),
   ],
   server: {
-    port: 80
+    host: true,
+    port: 80,
+    watch: {
+      usePolling: true
+    }
   },
   resolve: {
     alias: {
