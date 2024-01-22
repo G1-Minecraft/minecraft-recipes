@@ -11,7 +11,7 @@ services:
       - MYSQL_ROOT_PASSWORD=changeme
       - MYSQL_DATABASE=minecraft
     networks:
-      - minecraft
+      - api
     healthcheck:
       test: "mysql -pchangeme -e 'SELECT 1'"
       interval: 10s
@@ -32,6 +32,7 @@ services:
       - "8210:80"
     networks:
       - minecraft
+      - api
     depends_on:
       minecraft-db:
         condition: service_healthy
@@ -57,11 +58,37 @@ services:
       context: minecraft-avatar
       dockerfile: Dockerfile
       args:
+        - DATABASE_PASSWORD=changeme
+        - DATABASE_HOST=minecraft-avatar-db
+        - DATABASE_DB=avatar
         - APP_HOME=/home/minecraft-avatar
     ports:
       - "8230:80"
     networks:
       - minecraft
+      - avatar
+    depends_on:
+      minecraft-avatar-db:
+        condition: service_healthy
+
+  minecraft-avatar-db:
+    image: mariadb:10
+    ports:
+      - "8231:3306"
+    volumes:
+      - ./database/avatar-data:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=changeme
+      - MYSQL_DATABASE=avatar
+    networks:
+      - avatar
+    healthcheck:
+      test: "mysql -pchangeme -e 'SELECT 1'"
+      interval: 10s
+      timeout: 10s
+      retries: 12
 
 networks:
   minecraft:
+  api:
+  avatar:
