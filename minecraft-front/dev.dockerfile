@@ -6,4 +6,4 @@ ENV APP_HOME=${APP_HOME:-'/home'}
 
 WORKDIR $APP_HOME
 
-CMD [ "npm", "run", "dev" ]
+CMD npm install && npm run dev
