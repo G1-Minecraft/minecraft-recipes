@@ -9,29 +9,10 @@ on:
       - main
 
 jobs:
-  api-build:
+  compose-build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./minecraft-api
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t minecraft-api .
+      - run: docker compose up --build -d
+      - run: docker compose down
 
-  avatar-build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./minecraft-avatar
-    steps:
-      - uses: actions/checkout@v4
-      - run: docker build -t minecraft-avatar .
-
-  front-build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./minecraft-front
-    steps:
-      - uses: actions/checkout@v4
-      - run: docker build -t minecraft-front .
