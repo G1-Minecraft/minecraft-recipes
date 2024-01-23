@@ -1,0 +1,20 @@
+.footer-background-svg{
+    width: 1931px;
+    height: 153px;
+    flex-shrink: 0;
+}
+
+footer{
+    width: 1920px;
+    height: 93px;
+    flex-shrink: 0;
+}
+
+h1{
+    color: #FFF;
+    font-family: "Akira Expanded";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
