@@ -13,9 +13,8 @@
 <style scoped>
   aside {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     width: 34%;
-    border: 1px solid #000;
     background: rgba(0, 0, 0, 0.75);
   }
 </style>

@@ -13,6 +13,7 @@
 <style scoped>
   div {
     display: flex;
+    height: 100%;
     flex-direction: row;
   }
 </style>
