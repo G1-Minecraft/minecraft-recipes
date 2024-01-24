@@ -1,15 +1,19 @@
 <script setup lang="ts">
+import RegisterMainComponent from "@/components/layout/RegisterMainComponent.vue";
 </script>
 
 <template>
-  <main>
-
-  </main>
+  <div class="registerview">
+    <RegisterMainComponent />
+  </div>
 </template>
 
 <style scoped>
-main{
-  background-image: url("@/assets/images/background/form-inscription-background.svg");
-
+.registerview{
+  display: flex;
+  padding: 2% 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
 }
 </style>

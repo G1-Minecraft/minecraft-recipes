@@ -1,6 +1,6 @@
 <template>
   <div class="searchBar">
-    <input class="minecraft-btn" type="text">
+    <input class="minecraftBtn" type="text">
   </div>
 </template>
 
