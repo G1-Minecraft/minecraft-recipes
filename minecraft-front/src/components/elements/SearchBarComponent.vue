@@ -6,15 +6,15 @@
 
 <style scoped>
 
-  input {
-    width: 90%;
-    height: 50%;
-  }
+input {
+  width: 90%;
+  height: 50%;
+}
 
-  .searchBar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 15%;
-  }
+.searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15%;
+}
 </style>
