@@ -9,10 +9,3 @@ import FooterComponent from "@/components/layout/FooterComponent.vue";
   <RouterView />
   <FooterComponent />
 </template>
-
-<style>
-  @font-face {
-    font-family: "NotoSans";
-    src: url("@/assets/fonts/NotoSans-Regular.ttf");
-  }
-</style>

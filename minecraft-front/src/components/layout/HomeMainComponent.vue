@@ -47,9 +47,9 @@
       <img v-else class="brewingStand" src="@/assets/images/tables/GUI_Brewing_Stand.png"  alt="alambique">
     </div>
     <div class="buttons">
-      <button id="craftingTableButton" @click="setCraftingTable" :disabled="state.activeButton === 'craftingTableButton'">Crafting table</button>
-      <button id="furnaceButton" @click="setFurnace" :disabled="state.activeButton === 'furnaceButton'">Furnace</button>
-      <button id="brewingStandButton" @click="setBrewingStand" :disabled="state.activeButton === 'brewingStandButton'">Brewing Stand</button>
+      <button class="minecraft-btn" id="craftingTableButton" @click="setCraftingTable" :disabled="state.activeButton === 'craftingTableButton'">Crafting table</button>
+      <button class="minecraft-btn" id="furnaceButton" @click="setFurnace" :disabled="state.activeButton === 'furnaceButton'">Furnace</button>
+      <button class="minecraft-btn" id="brewingStandButton" @click="setBrewingStand" :disabled="state.activeButton === 'brewingStandButton'">Brewing Stand</button>
     </div>
   </main>
 </template>
@@ -57,6 +57,7 @@
 <style scoped>
   main {
     display: flex;
+    flex-direction: column;
     height: 100%;
     width: 66%;
     justify-content: center;
@@ -64,7 +65,7 @@
   }
 
   .craftingTable {
-    width: 75%;
+    width: 90%;
   }
 
   .furnace {
@@ -79,6 +80,14 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 10% 10%;
+    padding: 5% 10%;
   }
+
+  .buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 2% 0;
+  }
+
 </style>
