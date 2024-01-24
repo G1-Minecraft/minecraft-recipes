@@ -6,15 +6,17 @@
 
 <style scoped>
 footer{
+  display: flex;
+  align-items: center;
   background-image: url("@/assets/images/background/footer-background.svg");
-  height: 93px;
+  height: 70px;
   flex-shrink: 0;
 }
 
 h1{
+  padding-left: 2%;
   color: #FFF;
   font-family: NotoSans,serif;
-  padding: 30px 0 0 0;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;

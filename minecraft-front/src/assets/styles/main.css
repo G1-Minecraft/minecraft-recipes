@@ -10,6 +10,12 @@
   src: url("@/assets/fonts/Minecraft.ttf");
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 body {
   background-image: url("../images/background/body-background.svg");
 }
