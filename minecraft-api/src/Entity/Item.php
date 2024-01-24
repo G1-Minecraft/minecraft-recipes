@@ -29,6 +29,10 @@ class Item
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: CraftSlot::class, orphanRemoval: true)]
     private Collection $craftSlots;
 
+    #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'items')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    private ?User $creator = null;
+
     public function __construct()
     {
         $this->crafts = new ArrayCollection();
@@ -120,6 +124,18 @@ class Item
                 $craftSlot->setItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): static
+    {
+        $this->creator = $creator;
 
         return $this;
     }
