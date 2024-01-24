@@ -1,11 +1,13 @@
 <template>
-  <div class="searchBar">
+  <div class="items">
 
   </div>
 </template>
 
 <style scoped>
-  .searchBar {
-    height: 15%;
+  .items {
+    display: flex;
+    height: 85%;
+
   }
 </style>
