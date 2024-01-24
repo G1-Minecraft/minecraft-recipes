@@ -47,9 +47,9 @@
       <img v-else class="brewingStand" src="@/assets/images/tables/GUI_Brewing_Stand.png"  alt="alambique">
     </div>
     <div class="buttons">
-      <button class="minecraft-btn" id="craftingTableButton" @click="setCraftingTable" :disabled="state.activeButton === 'craftingTableButton'">Crafting table</button>
-      <button class="minecraft-btn" id="furnaceButton" @click="setFurnace" :disabled="state.activeButton === 'furnaceButton'">Furnace</button>
-      <button class="minecraft-btn" id="brewingStandButton" @click="setBrewingStand" :disabled="state.activeButton === 'brewingStandButton'">Brewing Stand</button>
+      <button class="minecraftBtn" id="craftingTableButton" @click="setCraftingTable" :disabled="state.activeButton === 'craftingTableButton'">Crafting table</button>
+      <button class="minecraftBtn" id="furnaceButton" @click="setFurnace" :disabled="state.activeButton === 'furnaceButton'">Furnace</button>
+      <button class="minecraftBtn" id="brewingStandButton" @click="setBrewingStand" :disabled="state.activeButton === 'brewingStandButton'">Brewing Stand</button>
     </div>
   </main>
 </template>
