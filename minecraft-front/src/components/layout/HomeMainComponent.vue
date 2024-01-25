@@ -42,14 +42,38 @@
 <template>
   <main>
     <div class="table">
-      <img v-if="state.craftType === 'CraftingTable'" class="craftingTable" src="@/assets/images/tables/GUI_Crafting_Table.png" alt="table de craft">
+      <div v-if="state.craftType === 'CraftingTable'">
+        <img class="craftingTable" src="@/assets/images/tables/GUI_Crafting_Table.png" alt="table de craft">
+        <table class="input">
+          <tr>
+            <td>Case1</td>
+            <td>Case2</td>
+            <td>Case3</td>
+          </tr>
+          <tr>
+            <td>Case4</td>
+            <td>Case5</td>
+            <td>Case6</td>
+          </tr>
+          <tr>
+            <td>Case7</td>
+            <td>Case8</td>
+            <td>Case9</td>
+          </tr>
+        </table>
+        <table class="output">
+          <tr>
+            <td>Sortie</td>
+          </tr>
+        </table>
+      </div>
       <img v-else-if="state.craftType === 'Furnace'" class="furnace" src="@/assets/images/tables/GUI_Furnace.png" alt="four">
       <img v-else class="brewingStand" src="@/assets/images/tables/GUI_Brewing_Stand.png"  alt="alambique">
     </div>
     <div class="buttons">
-      <button class="minecraft-btn" id="craftingTableButton" @click="setCraftingTable" :disabled="state.activeButton === 'craftingTableButton'">Crafting table</button>
-      <button class="minecraft-btn" id="furnaceButton" @click="setFurnace" :disabled="state.activeButton === 'furnaceButton'">Furnace</button>
-      <button class="minecraft-btn" id="brewingStandButton" @click="setBrewingStand" :disabled="state.activeButton === 'brewingStandButton'">Brewing Stand</button>
+      <button class="minecraftBtn" id="craftingTableButton" @click="setCraftingTable" :disabled="state.activeButton === 'craftingTableButton'">Crafting table</button>
+      <button class="minecraftBtn" id="furnaceButton" @click="setFurnace" :disabled="state.activeButton === 'furnaceButton'">Furnace</button>
+      <button class="minecraftBtn" id="brewingStandButton" @click="setBrewingStand" :disabled="state.activeButton === 'brewingStandButton'">Brewing Stand</button>
     </div>
   </main>
 </template>
@@ -60,8 +84,33 @@
     flex-direction: column;
     height: 100%;
     width: 66%;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+  }
+
+  td {
+    text-align: center;
+  }
+
+  .input, .output {
+    position: absolute;
+    top: 8.5%; left: 9%;
+    width: 38%;
+    height: 80%;
+  }
+
+  .output {
+    left: 73%;
+    top: 32%;
+    height: 35%;
+    width: 17%;
+  }
+
+  .table > div {
+    display: flex;
+    position: relative;
+    width: inherit;
+    justify-content: center;
   }
 
   .craftingTable {
