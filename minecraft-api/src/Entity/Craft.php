@@ -7,31 +7,38 @@ use App\Repository\CraftRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CraftRepository::class)]
-#[ApiResource]
+#[ApiResource(normalizationContext: ["groups"=>["craft:read", "craftSlot:read", "item:read"]])]
 class Craft
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['craft:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['craft:read'])]
     private ?string $crafter = null;
 
-    #[ORM\ManyToOne(inversedBy: 'crafts')]
+    #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'crafts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['craft:read'])]
     private ?Item $result = null;
 
     #[ORM\Column]
+    #[Groups(['craft:read'])]
     private ?int $resultAmount = null;
 
     #[ORM\OneToMany(mappedBy: 'craft', targetEntity: CraftSlot::class, orphanRemoval: true)]
+    #[Groups(['craft:read'])]
     private Collection $craftSlots;
 
     #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'crafts')]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    #[Groups(['craft:read'])]
     private ?User $creator = null;
 
     public function __construct()

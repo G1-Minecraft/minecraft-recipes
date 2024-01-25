@@ -7,20 +7,24 @@ use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
-#[ApiResource]
+#[ApiResource(normalizationContext: ["groups"=>["item:read"]])]
 class Item
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['item:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['item:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['item:read'])]
     private ?string $textureName = null;
 
     #[ORM\OneToMany(mappedBy: 'result', targetEntity: Craft::class, orphanRemoval: true)]
@@ -31,6 +35,7 @@ class Item
 
     #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'items')]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    #[Groups(['item:read'])]
     private ?User $creator = null;
 
     public function __construct()

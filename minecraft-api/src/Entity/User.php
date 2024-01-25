@@ -3,6 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,23 +15,27 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity("login", message: "Login must be unique!")]
 #[UniqueEntity("email", message: "Email must be unique!")]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
+#[ApiResource(operations: [new Get(), new GetCollection(), new Post(), new Patch(), new Delete()],
+    normalizationContext: ["groups"=>["user:read"]])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?int $id = null;
 
     #[Assert\NotBlank]
     #[Assert\NotNull]
     #[Assert\Length(min: 4, max: 20, minMessage: 'Must be 4 characters or more!', maxMessage: 'Must be 20 characters or less!')]
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['user:read'])]
     private ?string $login = null;
 
     #[ORM\Column]
@@ -42,12 +51,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull]
     #[Assert\Email(message: "Invalid email!")]
     #[ORM\Column(length: 255, unique: true)]
+    #[Groups(['user:read'])]
     private ?string $email = null;
 
-    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Item::class)]
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Item::class, orphanRemoval: true)]
     private Collection $items;
 
-    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Craft::class)]
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Craft::class, orphanRemoval: true)]
     private Collection $crafts;
 
     public function __construct()
