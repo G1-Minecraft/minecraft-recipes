@@ -1,6 +1,18 @@
+<script setup lang="ts">
+import {ref, watch} from "vue";
+
+  const searchQuery = ref('');
+
+  watch(() => searchQuery.value, () => {
+    filteredItems.value = items.value.filter((item) =>
+        item.src.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+  });
+</script>
+
 <template>
   <div class="searchBar">
-    <input class="minecraft-btn" type="text">
+    <input class="minecraftBtn" v-model="searchQuery" type="text">
   </div>
 </template>
 
