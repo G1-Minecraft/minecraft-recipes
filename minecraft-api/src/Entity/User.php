@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -9,6 +10,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Repository\UserRepository;
+use App\State\UserProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,7 +23,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity("login", message: "Login must be unique!")]
 #[UniqueEntity("email", message: "Email must be unique!")]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource(operations: [new Get(), new GetCollection(), new Post(), new Patch(), new Delete()],
+#[ApiResource(operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(
+            denormalizationContext: ['groups'=>['user:create']],
+            validationContext: ['groups'=>['Default', 'user:create']],
+            processor: UserProcessor::class),
+        new Patch(
+            denormalizationContext: ['groups'=>['user:update']],
+            validationContext: ['groups'=>['Default', 'user:update']],
+            processor: UserProcessor::class),
+        new Delete()],
     normalizationContext: ["groups"=>["user:read"]])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -31,11 +44,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read'])]
     private ?int $id = null;
 
-    #[Assert\NotBlank]
-    #[Assert\NotNull]
+    #[Assert\NotBlank(groups: ['user:create'])]
+    #[Assert\NotNull(groups: ['user:create'])]
     #[Assert\Length(min: 4, max: 20, minMessage: 'Must be 4 characters or more!', maxMessage: 'Must be 20 characters or less!')]
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'user:create'])]
     private ?string $login = null;
 
     #[ORM\Column]
@@ -47,11 +60,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[Assert\NotBlank]
-    #[Assert\NotNull]
+    #[Assert\NotBlank(groups: ['user:create'])]
+    #[Assert\NotNull(groups: ['user:create'])]
     #[Assert\Email(message: "Invalid email!")]
     #[ORM\Column(length: 255, unique: true)]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $email = null;
 
     #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Item::class, orphanRemoval: true)]
@@ -59,6 +72,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Craft::class, orphanRemoval: true)]
     private Collection $crafts;
+
+    #[Assert\NotBlank(groups: ['user:create'])]
+    #[Assert\NotNull(groups: ['user:create'])]
+    #[Assert\Length(min: 8, max: 30, minMessage: 'Must be 8 characters or more!', maxMessage: 'Must be 20 characters or less!')]
+    #[Assert\Regex(pattern: '#^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$#', message: 'Must contain a number, an uppercase letter and a lowercase letter!')]
+    #[ApiProperty(readable: false)]
+    #[Groups(['user:create', 'user:update'])]
+    private ?string $plainPassword = null;
 
     public function __construct()
     {
@@ -132,8 +153,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getEmail(): ?string
@@ -206,5 +226,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 }
