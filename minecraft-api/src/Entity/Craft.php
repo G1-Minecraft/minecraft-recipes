@@ -2,15 +2,26 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use App\Repository\CraftRepository;
+use App\State\CreatorProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CraftRepository::class)]
-#[ApiResource(normalizationContext: ["groups"=>["craft:read", "craftSlot:read", "item:read"]])]
+#[ApiResource(operations: [
+    new GetCollection(),
+    new Get(),
+    new Post(denormalizationContext: ['groups'=>['craft:create']], security: "is_granted('ROLE_USER')", processor: CreatorProcessor::class),
+    new Delete(security: "is_granted('ROLE_USER') and object.getCreator() == user")
+], normalizationContext: ["groups"=>["craft:read", "craftSlot:read", "item:read"]])]
 class Craft
 {
     #[ORM\Id]
@@ -20,16 +31,16 @@ class Craft
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['craft:read'])]
+    #[Groups(['craft:read', 'craft:create'])]
     private ?string $crafter = null;
 
     #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'crafts')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['craft:read'])]
+    #[Groups(['craft:read', 'craft:create'])]
     private ?Item $result = null;
 
     #[ORM\Column]
-    #[Groups(['craft:read'])]
+    #[Groups(['craft:read', 'craft:create'])]
     private ?int $resultAmount = null;
 
     #[ORM\OneToMany(mappedBy: 'craft', targetEntity: CraftSlot::class, orphanRemoval: true)]
@@ -38,6 +49,7 @@ class Craft
 
     #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'crafts')]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    #[ApiProperty(writable: false)]
     #[Groups(['craft:read'])]
     private ?User $creator = null;
 

@@ -3,12 +3,19 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use App\Repository\CraftSlotRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CraftSlotRepository::class)]
-#[ApiResource(normalizationContext: ["groups"=>["singleCraftSlot:read", "craftSlot:read", "item:read"]])]
+#[ApiResource(operations: [
+    new Get(),
+    new Post(security: "is_granted('ROLE_USER')"),
+    new Delete(security: "is_granted('ROLE_USER') and object.getCraft().getCreator() == user")
+], normalizationContext: ["groups"=>["singleCraftSlot:read", "craftSlot:read", "item:read"]])]
 class CraftSlot
 {
     #[ORM\Id]

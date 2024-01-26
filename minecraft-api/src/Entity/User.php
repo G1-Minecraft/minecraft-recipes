@@ -32,9 +32,10 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: UserProcessor::class),
         new Patch(
             denormalizationContext: ['groups'=>['user:update']],
+            security: "is_granted('ROLE_USER') and object == user",
             validationContext: ['groups'=>['Default', 'user:update']],
             processor: UserProcessor::class),
-        new Delete()],
+        new Delete(security: "is_granted('ROLE_USER') and object == user")],
     normalizationContext: ["groups"=>["user:read"]])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
