@@ -28,6 +28,7 @@ services:
         - DATABASE_HOST=minecraft-db
         - DATABASE_DB=minecraft
         - APP_HOME=/home/minecraft-api
+        - JWT_PASSPHRASE=changeme
     ports:
       - "8210:80"
     networks:
