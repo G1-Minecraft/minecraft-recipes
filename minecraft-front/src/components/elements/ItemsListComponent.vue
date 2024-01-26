@@ -1,23 +1,20 @@
 <script setup lang="ts">
-  import { onMounted, ref, computed, nextTick, watch } from 'vue';
+  import {onMounted, ref, computed, watch, type Ref} from 'vue';
+  import type {Item} from "@/types";
 
-  const items = ref([]);
+  const items: Ref<Item[]>  = ref([]);
   const itemsPerPage = ref(70);
   const currentPage = ref(1);
   const itemsPerLine = ref(10);
   const searchQuery = ref('');
 
   onMounted(() => {
-    loadItems();
-    nextTick(() => {
-      updateItemsPerPage();
-    });
-  });
-
-  function loadItems() {
-    const imageContext = import.meta.glob('@/assets/images/items/*.png', { eager: true });
-    items.value = Object.keys(imageContext).map((key) => ({ src: imageContext[key].default }));
-  }
+    fetch("http://localhost:8210/api/items?page=1")
+      .then(reponsehttp => reponsehttp.json())
+      .then(reponseJSON => {
+        items.value = reponseJSON["hydra:member"];
+      });
+  })
 
   const totalPages = computed(() => Math.ceil(items.value.length / itemsPerPage.value));
 
@@ -64,11 +61,27 @@
     updateItemsPerPage();
   });
 
-  function filterItems() {
-    const filteredItems = items.value.filter(item => item.src.toLowerCase().includes(searchQuery.value.toLowerCase()));
-    const start = (currentPage.value - 1) * itemsPerPage.value;
-    const end = start + itemsPerPage.value;
-    displayedItems.value = filteredItems.slice(start, end);
+  function placeItemInTable(item: Item) {
+    const casesInput = document.querySelectorAll('.input td');
+    const casesOutput = document.querySelectorAll('.output td');
+
+    const balise = `
+            <div :key="${item.name}" class="item">
+                <img style="width: 70%" src="/src/assets/images/items/${item.textureName}.png" alt="Item" />
+            </div>
+        `;
+
+    casesInput.forEach((caseElement) => {
+      caseElement.addEventListener('click', () => {
+        caseElement.innerHTML = balise;
+      });
+    });
+
+    casesOutput.forEach((caseElement) => {
+      caseElement.addEventListener('click', () => {
+        caseElement.innerHTML = balise;
+      });
+    });
   }
 </script>
 
@@ -79,8 +92,8 @@
   </div>
   <div>
     <div class="itemContainer">
-      <div v-for="(item, index) in displayedItems" :key="index" class="item">
-        <img :src="item.src" alt="Item" />
+      <div v-for="item in displayedItems" :key="item.name" class="item" @click="placeItemInTable(item, 1, 1)">
+        <img :src="'/src/assets/images/items/'+ item.textureName + '.png'" alt="Item" />
       </div>
     </div>
     <div class="pagination">
