@@ -46,19 +46,19 @@
         <img class="craftingTable" src="@/assets/images/tables/GUI_Crafting_Table.png" alt="table de craft">
         <table class="input">
           <tr>
-            <td>Case1</td>
-            <td>Case2</td>
-            <td>Case3</td>
+            <td id="1">Case1</td>
+            <td id="2">Case2</td>
+            <td id="3">Case3</td>
           </tr>
           <tr>
-            <td>Case4</td>
-            <td>Case5</td>
-            <td>Case6</td>
+            <td id="4">Case4</td>
+            <td id="5">Case5</td>
+            <td id="6">Case6</td>
           </tr>
           <tr>
-            <td>Case7</td>
-            <td>Case8</td>
-            <td>Case9</td>
+            <td id="7">Case7</td>
+            <td id="8">Case8</td>
+            <td id="9">Case9</td>
           </tr>
         </table>
         <table class="output">
@@ -90,6 +90,8 @@
 
   td {
     text-align: center;
+    height: 25%;
+    color: rgba(0, 0, 0, 0);
   }
 
   .input, .output {
