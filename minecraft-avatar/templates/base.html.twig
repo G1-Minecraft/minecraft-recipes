@@ -1,18 +1,43 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ importmap() }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<html lang="fr">
+<head>
+    <title>{% block page_title %}Base{% endblock %}</title>
+    {% block js %}{% endblock %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.css") }}">
+</head>
+<body>
+<header>
+    <div id="title" class="center">
+        <a href=""><span>My Avatar</span></a>
+        <nav>
+            <a href="{{ path('home') }}">Home</a>
+            {% if not is_granted('ROLE_USER') %}
+                <a href="{{ path('register') }}">Register</a>
+                <a href="{{ path('login') }}">Login</a>
+            {% else %}
+                <form method="post" action='{{ path('logout') }}'>
+                    <button id="btn-logout">Logout</button>
+                </form>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+<div id="flashes-container">
+    {% for flash in app.flashes('success') %}
+        <span class="flashes flashes-success">
+                {{ flash }}
+        </span>
+    {% endfor %}
+    {% for flash in app.flashes('error') %}
+        <span class="flashes flashes-error">
+                {{ flash }}
+        </span>
+    {% endfor %}
+</div>
+{% block page_content %}
+{% endblock %}
+</body>
 </html>
