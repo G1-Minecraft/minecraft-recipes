@@ -22,7 +22,7 @@ class UserManager implements UserManagerInterface
 
     private function saveProfilePicture(User $user, ?UploadedFile $profilePictureFile) : void {
         if($profilePictureFile != null) {
-            $name = uniqid() . '.' . $profilePictureFile->guessExtension();
+            $name = md5($user->getEmail()) . '.' . $profilePictureFile->guessExtension();
             $profilePictureFile->move($this->profilePictureDirectory, $name);
             $user->setProfilePictureName($name);
         }
