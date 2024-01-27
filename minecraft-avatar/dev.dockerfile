@@ -32,6 +32,4 @@ WORKDIR $APP_HOME
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 RUN chmod +x /usr/bin/composer
 
-# && php bin/console doctrine:migrations:migrate --no-interaction
-
-CMD composer install & apache2-foreground
+CMD composer install && php bin/console doctrine:migrations:migrate --no-interaction & apache2-foreground
