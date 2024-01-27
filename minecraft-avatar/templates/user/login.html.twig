@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block page_title %}Login{% endblock %}
+{% block page_content %}
+    <main>
+        <form action="{{ path('login') }}" method="post" class="basic-form center">
+            <fieldset>
+                <legend>Login</legend>
+                <div class="access-container">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="_username" value="{{ lastEmail }}" required/>
+                </div>
+                <div class="access-container">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="_password" required/>
+                </div>
+                <button type="submit" class="basic-form-submit">Login</button>
+            </fieldset>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        </form>
+    </main>
+{% endblock %}
