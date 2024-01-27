@@ -28,7 +28,7 @@ class UserType extends AbstractType
                     new NotNull(),
                     new Regex(
                         pattern: '#^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$#',
-                        message: 'Incorrect password (must contain atleast a digit, a lowercase and an uppercase) and be between 8 and 30 characters'
+                        message: 'Incorrect password (must contain atleast a digit, a lowercase and an uppercase and be between 8 and 30 characters)'
                     )
                 ]
             ])
@@ -42,7 +42,7 @@ class UserType extends AbstractType
                     new File(
                         maxSize: '10M',
                         mimeTypes: ['image/jpeg', 'image/png'],
-                        maxSizeMessage: 'The file is above the max tolerated size (10 Mo)',
+                        maxSizeMessage: 'The file is above the maximum tolerated size (10 Mo)',
                         mimeTypesMessage: 'The file must have a valid extension (jpg or png)',
 
                     )
