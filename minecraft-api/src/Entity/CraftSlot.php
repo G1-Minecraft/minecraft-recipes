@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(operations: [
     new Get(),
     new Post(security: "is_granted('ROLE_USER')"),
-    new Delete(security: "is_granted('ROLE_USER') and object.getCraft().getCreator() == user")
+    new Delete(security: "is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getCraft().getCreator() == user)")
 ], normalizationContext: ["groups"=>["singleCraftSlot:read", "craftSlot:read", "item:read"]])]
 class CraftSlot
 {
