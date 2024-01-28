@@ -32,9 +32,6 @@
             <button onclick="deleteAccount()" class="basic-form-submit">Delete account</button>
         </form>
     </main>
-{% endblock %}
-
-{% block js %}
     <script>
 
         function deleteAccount() {
@@ -43,7 +40,7 @@
             })
                 .then(()=> {
                     console.log("DELETED");
-                    window.location.href = '/';
+                    window.location.href = '/login';
                 })
         }
     </script>
