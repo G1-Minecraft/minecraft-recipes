@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new GetCollection(),
     new Get(),
     new Post(denormalizationContext: ['groups'=>['item:create']], security: "is_granted('ROLE_USER')", processor: CreatorProcessor::class),
-    new Delete(security: "is_granted('ROLE_USER') and object.getCreator() == user")
+    new Delete(security: "is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getCreator() == user)")
 ], normalizationContext: ["groups"=>["item:read"]])]
 class Item
 {
