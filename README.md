@@ -34,7 +34,16 @@ Dans l'objectif d'avoir un système de recettes généralise, notre API contient
 
 ## MyAvatar
 
-//TODO: description du projet MyAvatar
+Le projet My Avatar est une application Symfony server-side qui possède un système d'utilisateur classique et qui a pour fonction principale la mise à disposition d'une route permettant de requêter l'avatar d'un utilisateur.
+
+Les avatars des utilisateurs sont stockés sur le serveur sous un nom correspondant à l'email de l'utilisateur en md5. Les formats acceptés sont jpg et png. Ces images sont automatiquement mises à jour en fonction des différentes actions réalisables par l'utilisateur sur son profil qui est modélisé de la manière suivante : 
+- Adresse mail représentant son identifiant unique
+- Mot de passe
+- Photo de profil (avatar)
+
+Un changement de l'adresse mail entraîne automatiquement un changement du nom de fichier de son avatar pour correspondre à sa nouvelle adresse. La suppression de compte est également gérée en supprimant dans la foulée l'image de l'utilisateur, avant de le déconnecter et de le ramener sur la page de connexion.
+
+Pour récupérer un avatar il suffit donc d'effectuer une requête en get vers urlserveur/avatar/mailmd5 avec mailmd5 étant la valeur de l'email utilisateur actuel hash en md5.
 
 ## Investissement
 
@@ -42,7 +51,7 @@ Dans l'objectif d'avoir un système de recettes généralise, notre API contient
 - Hugo Siliveri: 
 - Alexandre Machu: 
 - Lucas Jalbaud: 
-- Benjamin Cayroche: 
+- Benjamin Cayroche: My Avatar
 
 ## Identifiants
 
