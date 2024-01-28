@@ -18,7 +18,6 @@
                 {{ form_label(form.profilePictureFile) }}
                 {{ form_widget(form.profilePictureFile, {'required' : '', 'attr' : {'accept' : 'image/png, image/jpeg'}}) }}
             </div>
-            <!-- Affichage du bouton d'envoi, contenant le texte (label) "S'inscrire" -->
             {{ form_widget(form.register, {'label': 'Register', 'attr': {'class': 'basic-form-submit'}}) }}
         </fieldset>
         {{ form_rest(form) }}
