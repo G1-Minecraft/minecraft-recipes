@@ -1,8 +1,5 @@
 <script setup lang="ts">
   import ItemsListComponent from "@/components/elements/ItemsListComponent.vue";
-  import SearchBarComponent from "@/components/elements/SearchBarComponent.vue";
-
-
 </script>
 
 <template>

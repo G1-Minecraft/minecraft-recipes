@@ -19,9 +19,11 @@
   const totalPages = computed(() => Math.ceil(items.value.length / itemsPerPage.value));
 
   const displayedItems = computed(() => {
-    const start = (currentPage.value - 1) * itemsPerPage.value;
-    const end = start + itemsPerPage.value;
-    return items.value.slice(start, end);
+    if (items.value.length >= 0 ){
+      const start = (currentPage.value - 1) * itemsPerPage.value;
+      const end = start + itemsPerPage.value;
+      return items.value.slice(start, end);
+    }
   });
 
   function nextPage() {
@@ -88,11 +90,11 @@
 
 <template>
   <div class="searchBar">
-    <input class="minecraftBtn" v-model="searchQuery" @input="filterItems" type="text" />
+    <input class="minecraftBtn" v-model="searchQuery" type="text" />
   </div>
   <div>
     <div class="itemContainer">
-      <div v-for="item in displayedItems" :key="item.name" class="item" @click="placeItemInTable(item, 1, 1)">
+      <div v-for="item in displayedItems" :key="item.name" class="item" @click="placeItemInTable(item)">
         <img :src="'/src/assets/images/items/'+ item.textureName + '.png'" alt="Item" />
       </div>
     </div>
