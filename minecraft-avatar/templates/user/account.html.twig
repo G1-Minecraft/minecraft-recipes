@@ -33,15 +33,13 @@
         </form>
     </main>
     <script>
-
-        function deleteAccount() {
-            fetch('/account', {
+        async function deleteAccount() {
+            const response = await fetch('/account', {
                 method: 'DELETE'
-            })
-                .then(()=> {
-                    console.log("DELETED");
-                    window.location.href = '/login';
-                })
+            });
+            if (response.ok) {
+                window.location.href = '/login';
+            }
         }
     </script>
 {% endblock %}

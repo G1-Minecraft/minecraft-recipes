@@ -32,10 +32,10 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: UserProcessor::class),
         new Patch(
             denormalizationContext: ['groups'=>['user:update']],
-            security: "is_granted('ROLE_USER') and object == user",
+            security: "is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object == user)",
             validationContext: ['groups'=>['Default', 'user:update']],
             processor: UserProcessor::class),
-        new Delete(security: "is_granted('ROLE_USER') and object == user")],
+        new Delete(security: "is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object == user)")],
     normalizationContext: ["groups"=>["user:read"]])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -53,6 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $login = null;
 
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private array $roles = [];
 
     /**
