@@ -1,9 +1,20 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+  import HomeMainComponent from "@/components/layout/HomeMainComponent.vue";
+  import HomeAsideComponent from "@/components/layout/HomeAsideComponent.vue";
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+    <div>
+        <HomeMainComponent />
+        <HomeAsideComponent />
+    </div>
 </template>
+
+<style scoped>
+  div {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+  }
+</style>
+
