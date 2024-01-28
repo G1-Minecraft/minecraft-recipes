@@ -4,6 +4,21 @@ export interface CraftState {
 }
 
 export interface Item {
-    name: string;
-    textureName: string;
+    name: string,
+    textureName: string,
+    crafts: Craft[] | null,
+    craftSlots: CraftSlots[] | null
+}
+
+export interface Craft {
+    crafter: string,
+    result: Item,
+    resultAmount: number,
+    craftSlots: CraftSlots[]
+}
+
+export interface CraftSlots {
+    craft: Craft,
+    item: Item,
+    position: number
 }
