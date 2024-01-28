@@ -69,39 +69,44 @@ class UserController extends AbstractController
                             FlashMessageHelperInterface $flashMessageHelper,
                             UserManagerInterface $utilisateurManager,
                             UserRepository $userRepository, SessionInterface $session): Response{
+        if($this->getUser() == null || $this->getUser()->getUserIdentifier() == null){
+            return $this->redirectToRoute("home");
+        }
         $userId = $this->getUser()->getUserIdentifier();
-        $user = null;
-        if($userId !=null){
-            $user = $userRepository->findOneBy(['email' => $userId]);
+        $user = $userRepository->findOneBy(['email' => $userId]);
+
+        if($user == null || !$this->isGranted('ROLE_USER')){
+            return $this->redirectToRoute("home");
         }
-        if($user != null && $this->isGranted('ROLE_USER')){
-                $form = $this->createForm(UserEditType::class, $user,
-                    [
-                        'method'=> 'POST',
-                        'action'=> $this->generateUrl('account')
-                    ]);
-                $form->handleRequest($request);
-                $flashMessageHelper->addFormErrorsAsFlash($form);
-            if($request->isMethod('POST') && $form->isSubmitted() && $form->isValid()){
-                $utilisateurManager->updateUser($user, $form['email']->getData(), $form['newPlainPassword']->getData(), $form['profilePictureFile']->getData());
-                $entityManager->persist($user);
-                $entityManager->flush();
-                $this->addFlash('success','Account updated successfully');
-                return $this->redirectToRoute("home");
-            }
 
-            elseif ($request->isMethod('DELETE')) {
-                $utilisateurManager->deleteUserProfilePicture($user);
-                $entityManager->remove($user);
-                $entityManager->flush();
+        $form = $this->createForm(UserEditType::class, $user,
+            [
+                'method'=> 'POST',
+                'action'=> $this->generateUrl('account')
+            ]);
+        $form->handleRequest($request);
+        $flashMessageHelper->addFormErrorsAsFlash($form);
 
-                $session->invalidate();
-
-                $this->addFlash('success','Account deleted successfully');;
-            }
-            return $this->render('user/account.html.twig', ["form"=> $form, "email"=> $user->getUserIdentifier()]);
+        if($request->isMethod('POST') && $form->isSubmitted() && $form->isValid()){
+            $utilisateurManager->updateUser($user, $form['email']->getData(), $form['newPlainPassword']->getData(), $form['profilePictureFile']->getData());
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success','Account updated successfully');
+            return $this->redirectToRoute("home");
         }
-        return $this->redirectToRoute("home");
+
+        elseif ($request->isMethod('DELETE')) {
+            $redirection = $this->redirectToRoute('logout', [], 307);
+            $utilisateurManager->deleteUserProfilePicture($user);
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+            $session->invalidate();
+
+            $this->addFlash('success','Account deleted successfully');
+            return $redirection;
+        }
+        return $this->render('user/account.html.twig', ["form"=> $form, "email"=> $user->getUserIdentifier()]);
     }
 
 }

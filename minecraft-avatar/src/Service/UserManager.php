@@ -26,7 +26,6 @@ class UserManager implements UserManagerInterface
         if($profilePictureFile != null) {
             $name = md5($user->getEmail()) . '.' . $profilePictureFile->guessExtension();
             $profilePictureFile->move($this->profilePictureDirectory, $name);
-//            chmod($this->profilePictureDirectory . DIRECTORY_SEPARATOR . $name, 0777);
             $user->setProfilePictureName($name);
         }
     }
