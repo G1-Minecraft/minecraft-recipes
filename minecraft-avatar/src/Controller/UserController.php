@@ -20,7 +20,12 @@ class UserController extends AbstractController
 {
     #[Route('/', name: 'home', methods: ['GET'])]
     public function homePage(Request $request){
-        return $this->render('base.html.twig');
+        if($this->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('account');
+        }
+        else{
+            return $this->redirectToRoute('login');
+        }
     }
 
     #[Route('/register', name: 'register', methods: ['GET','POST'])]

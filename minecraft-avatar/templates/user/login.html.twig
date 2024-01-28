@@ -14,6 +14,9 @@
                     <input id="password" type="password" name="_password" required/>
                 </div>
                 <button type="submit" class="basic-form-submit">Login</button>
+                <div>
+                    <a href="{{ path('register') }}">No account yet ?</a>
+                </div>
             </fieldset>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         </form>
