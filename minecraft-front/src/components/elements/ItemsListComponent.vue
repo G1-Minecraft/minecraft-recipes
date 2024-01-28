@@ -9,7 +9,7 @@
   const searchQuery = ref('');
 
   onMounted(() => {
-    fetch("http://localhost:8210/api/items?page=1")
+    fetch("http://localhost:8210/api/items")
       .then(reponsehttp => reponsehttp.json())
       .then(reponseJSON => {
         items.value = reponseJSON["hydra:member"];
@@ -19,11 +19,9 @@
   const totalPages = computed(() => Math.ceil(items.value.length / itemsPerPage.value));
 
   const displayedItems = computed(() => {
-    if (items.value.length >= 0 ){
       const start = (currentPage.value - 1) * itemsPerPage.value;
       const end = start + itemsPerPage.value;
       return items.value.slice(start, end);
-    }
   });
 
   function nextPage() {

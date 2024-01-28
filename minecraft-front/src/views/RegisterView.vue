@@ -3,17 +3,17 @@ import RegisterMainComponent from "@/components/layout/RegisterMainComponent.vue
 </script>
 
 <template>
-  <div class="registerview">
+  <div class="registerView">
     <RegisterMainComponent />
   </div>
 </template>
 
 <style scoped>
-.registerview{
+.registerView{
   display: flex;
-  padding: 2% 0;
   width: 100%;
   height: 100%;
+  align-items: center;
   justify-content: center;
 }
 </style>

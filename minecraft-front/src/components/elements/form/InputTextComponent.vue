@@ -1,8 +1,11 @@
 <template>
   <div class="inputBar">
-    <input class="textMinecraftWebUIBlack" type="text">
+    <input class="minecraftBtn" type="text">
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<style scoped>
+  input {
+    height: 25px;
+  }
+</style>

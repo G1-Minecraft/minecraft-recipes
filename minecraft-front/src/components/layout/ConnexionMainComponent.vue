@@ -17,18 +17,18 @@
 
 <template>
   <main>
-    <form @submit.prevent="connect" class="formConnexionContent">
-      <div class="inputsFormConnexion">
+    <form @submit.prevent="connect">
+      <div class="inputs">
         <div class="group">
-          <label class="textMinecraftWebUI" for="name">Nom d'utilisateur</label>
+          <label for="name">Nom d'utilisateur</label>
           <InputTextComponent v-model="connectingUser.login" name="name" id="name" required />
         </div>
         <div class="group">
-          <label class="textMinecraftWebUI" for="password">Mot de passe</label>
+          <label for="password">Mot de passe</label>
           <InputPasswordComponent v-model="connectingUser.password" name="password" id="password" required />
         </div>
       </div>
-      <div class="submitInputButtonConnexion">
+      <div>
         <InputSubmitComponent :value-text="connexionTest" />
       </div>
     </form>
@@ -36,10 +36,32 @@
 </template>
 
 <style scoped>
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
 main{
   background-image: url("@/assets/images/background/form-connexion-background.svg");
-  width: 20%;
-  flex-shrink: 0;
+  width: 25%;
+  height: 40%;
+  padding: 2%;
+}
+
+.inputs{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+}
+
+.inputBar {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
 }
 
 

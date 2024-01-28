@@ -10,26 +10,6 @@
   src: url("@/assets/fonts/Minecraft.ttf");
 }
 
-@font-face {
-  font-family: "InterRegular";
-  src: url("@/assets/fonts/Inter/Inter-Regular.ttf");
-}
-
-@font-face {
-  font-family: "InterBold";
-  src: url("@/assets/fonts/Inter/Inter-Bold.ttf");
-}
-
-@font-face {
-  font-family: "InterMedium";
-  src: url("@/assets/fonts/Inter/Inter-Medium.ttf");
-}
-
-@font-face {
-  font-family: "InterSemiBold";
-  src: url("@/assets/fonts/Inter/Inter-SemiBold.ttf");
-}
-
 #app {
   display: flex;
   flex-direction: column;
@@ -67,62 +47,4 @@ button {
 
 ::-webkit-scrollbar {
   display: none;
-}
-
-.textMinecraftWebUI{
-  color: #FFF;
-  font-family: NotoSans,serif;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.textMinecraftWebUIBlack{
-  color: black;
-  font-family: NotoSans,serif;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.textMinecraftFigmaUI{
-  color: #000;
-  font-family: InterRegular,serif;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.inputBar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 15%;
-}
-
-.submitBtn{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 15%;
-}
-
-input {
-  width: 90%;
-  height: 50%;
-}
-
-.submitInputButtonConnexion{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.formConnexionContent{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
