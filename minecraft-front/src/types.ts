@@ -6,8 +6,8 @@ export interface CraftState {
 export interface Item {
     name: string,
     textureName: string,
-    crafts: Craft[] | null,
-    craftSlots: CraftSlots[] | null
+    crafts: Craft[],
+    craftSlots: CraftSlots[]
 }
 
 export interface Craft {

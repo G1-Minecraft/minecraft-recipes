@@ -11,6 +11,7 @@
       </div>
       <div class="infos">
         <div class="text" @click="router.push({name: 'items'})">Créer un item</div>
+        <div class="text" @click="router.push({name: 'crafts'})">Créer un craft</div>
         <div class="text" @click="router.push({name: 'connexion'})">Connexion</div>
         <div class="text" @click="router.push({name: 'register'})">Inscription</div>
       </div>

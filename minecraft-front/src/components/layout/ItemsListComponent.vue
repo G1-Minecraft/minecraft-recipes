@@ -87,24 +87,33 @@
 
 
 <template>
-  <div class="searchBar">
-    <input class="minecraftBtn" v-model="searchQuery" @input="filterItems" type="text" />
-  </div>
-  <div>
-    <div class="itemContainer">
-      <div v-for="item in displayedItems" :key="item.name" class="item" @click="placeItemInTable(item, 1, 1)">
-        <img :src="'/src/assets/images/items/'+ item.textureName" alt="Item" />
+  <aside>
+    <div class="searchBar">
+      <input class="minecraftBtn" v-model="searchQuery" @input="filterItems" type="text" />
+    </div>
+    <div>
+      <div class="itemContainer">
+        <div v-for="item in displayedItems" :key="item.name" class="item" @click="placeItemInTable(item, 1, 1)">
+          <img :src="'/src/assets/images/items/'+ item.textureName" alt="Item" />
+        </div>
+      </div>
+      <div class="pagination">
+        <button class="minecraftBtn" @click="prevPage" :disabled="currentPage === 1">Prev</button>
+        <span>{{ currentPage }}</span>
+        <button class="minecraftBtn" @click="nextPage" :disabled="currentPage === totalPages">Next</button>
       </div>
     </div>
-    <div class="pagination">
-      <button class="minecraftBtn" @click="prevPage" :disabled="currentPage === 1">Prev</button>
-      <span>{{ currentPage }}</span>
-      <button class="minecraftBtn" @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-    </div>
-  </div>
+  </aside>
 </template>
 
 <style scoped>
+  aside {
+    display: flex;
+    flex-direction: column;
+    width: 34%;
+    background: rgba(0, 0, 0, 0.75);
+  }
+
   .itemContainer {
     display: flex;
     flex-wrap: wrap;

@@ -25,8 +25,6 @@ export default {
         craftSlots: []
       }
 
-      console.log(JSON.stringify(item));
-
       await fetch("http://localhost:8210/api/items", {
         method: "POST",
         headers: {
@@ -94,6 +92,12 @@ img {
 
 label {
   font-size: 1.5em;
+}
+
+button {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 </style>
