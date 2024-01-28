@@ -48,7 +48,7 @@ class UserManager implements UserManagerInterface
             $oldFileName = $this->profilePictureDirectory . DIRECTORY_SEPARATOR . $user->getProfilePictureName();
             $extension = pathinfo($oldFileName, PATHINFO_EXTENSION);
             $newName = md5($user->getEmail()) . '.' . $extension;
-            if (file_exists($oldFileName) && $user->getProfilePictureName() !=null) {
+            if (file_exists($oldFileName) && $user->getProfilePictureName() !=null && $user->getProfilePictureName() != $newName) {
                 $newFile = fopen($this->profilePictureDirectory . DIRECTORY_SEPARATOR . $newName, 'w');
                 $oldFile = fopen($oldFileName, 'r');
                 stream_copy_to_stream($oldFile, $newFile);

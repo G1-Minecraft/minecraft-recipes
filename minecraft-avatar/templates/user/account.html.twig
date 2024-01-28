@@ -9,7 +9,7 @@
                 <p id="account-title" class="email-title">{{ email }}</p>
             </div>
             <div class="avatar-container">
-                <img src="img/users/uploads/{{ profilePictureName }}" alt="User Avatar">
+                <img src="{{ path('getavatar', {'md5mail': app.user.getUserIdentifier() | md5}) }}" alt="User Avatar">
             </div>
         </div>
 
