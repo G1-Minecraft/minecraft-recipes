@@ -93,7 +93,7 @@
   <div>
     <div class="itemContainer">
       <div v-for="item in displayedItems" :key="item.name" class="item" @click="placeItemInTable(item, 1, 1)">
-        <img :src="'/src/assets/images/items/'+ item.textureName + '.png'" alt="Item" />
+        <img :src="'/src/assets/images/items/'+ item.textureName" alt="Item" />
       </div>
     </div>
     <div class="pagination">
