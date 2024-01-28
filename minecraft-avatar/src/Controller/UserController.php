@@ -91,7 +91,6 @@ class UserController extends AbstractController
             }
 
             elseif ($request->isMethod('DELETE')) {
-                $redirection = $this->redirectToRoute('logout', [], 307);
                 $utilisateurManager->deleteUserProfilePicture($user);
                 $entityManager->remove($user);
                 $entityManager->flush();
@@ -99,7 +98,6 @@ class UserController extends AbstractController
                 $session->invalidate();
 
                 $this->addFlash('success','Account deleted successfully');;
-                return $redirection;
             }
             return $this->render('user/account.html.twig', ["form"=> $form, "email"=> $user->getUserIdentifier()]);
         }
