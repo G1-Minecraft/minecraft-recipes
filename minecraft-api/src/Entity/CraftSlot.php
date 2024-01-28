@@ -3,27 +3,39 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use App\Repository\CraftSlotRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CraftSlotRepository::class)]
-#[ApiResource]
+#[ApiResource(operations: [
+    new Get(),
+    new Post(security: "is_granted('ROLE_USER')"),
+    new Delete(security: "is_granted('ROLE_USER') and object.getCraft().getCreator() == user")
+], normalizationContext: ["groups"=>["singleCraftSlot:read", "craftSlot:read", "item:read"]])]
 class CraftSlot
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['craftSlot:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'craftSlots')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['singleCraftSlot:read'])]
     private ?Craft $craft = null;
 
-    #[ORM\ManyToOne(inversedBy: 'craftSlots')]
+    #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'craftSlots')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['craftSlot:read'])]
     private ?Item $item = null;
 
     #[ORM\Column]
+    #[Groups(['craftSlot:read'])]
     private ?int $position = null;
 
     public function getId(): ?int

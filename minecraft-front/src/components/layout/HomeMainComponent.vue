@@ -42,7 +42,31 @@
 <template>
   <main>
     <div class="table">
-      <img v-if="state.craftType === 'CraftingTable'" class="craftingTable" src="@/assets/images/tables/GUI_Crafting_Table.png" alt="table de craft">
+      <div v-if="state.craftType === 'CraftingTable'">
+        <img class="craftingTable" src="@/assets/images/tables/GUI_Crafting_Table.png" alt="table de craft">
+        <table class="input">
+          <tr>
+            <td id="1">Case1</td>
+            <td id="2">Case2</td>
+            <td id="3">Case3</td>
+          </tr>
+          <tr>
+            <td id="4">Case4</td>
+            <td id="5">Case5</td>
+            <td id="6">Case6</td>
+          </tr>
+          <tr>
+            <td id="7">Case7</td>
+            <td id="8">Case8</td>
+            <td id="9">Case9</td>
+          </tr>
+        </table>
+        <table class="output">
+          <tr>
+            <td>Sortie</td>
+          </tr>
+        </table>
+      </div>
       <img v-else-if="state.craftType === 'Furnace'" class="furnace" src="@/assets/images/tables/GUI_Furnace.png" alt="four">
       <img v-else class="brewingStand" src="@/assets/images/tables/GUI_Brewing_Stand.png"  alt="alambique">
     </div>
@@ -60,8 +84,35 @@
     flex-direction: column;
     height: 100%;
     width: 66%;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+  }
+
+  td {
+    text-align: center;
+    height: 25%;
+    color: rgba(0, 0, 0, 0);
+  }
+
+  .input, .output {
+    position: absolute;
+    top: 8.5%; left: 9%;
+    width: 38%;
+    height: 80%;
+  }
+
+  .output {
+    left: 73%;
+    top: 32%;
+    height: 35%;
+    width: 17%;
+  }
+
+  .table > div {
+    display: flex;
+    position: relative;
+    width: inherit;
+    justify-content: center;
   }
 
   .craftingTable {

@@ -10,8 +10,8 @@
         <img src="@/assets/images/minecraft-crafting-table.png" alt="logo" @click="router.push({name: 'home'})" />
       </div>
       <div class="infos">
-        <div class="textMinecraftWebUI" @click="router.push({name: 'connexion'})">Connexion</div>
-        <div class="textMinecraftWebUI" @click="router.push({name: 'register'})">Inscription</div>
+        <div class="text" @click="router.push({name: 'connexion'})">Connexion</div>
+        <div class="text" @click="router.push({name: 'register'})">Inscription</div>
       </div>
     </nav>
   </header>
@@ -50,4 +50,14 @@ img{
   align-items: center;
   width: 20%;
 }
+
+.text{
+  color: #FFF;
+  font-family: NotoSans,serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
 </style>
