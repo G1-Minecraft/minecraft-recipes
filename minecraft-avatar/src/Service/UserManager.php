@@ -36,4 +36,44 @@ class UserManager implements UserManagerInterface
         $this->saveProfilePicture($user,$profilePictureFile);
     }
 
+    public function deleteUserProfilePicture(User $user) : void {
+        $fileName = $this->profilePictureDirectory . DIRECTORY_SEPARATOR . $user->getProfilePictureName();
+        if (file_exists($fileName) && $user->getProfilePictureName() != null) {
+            unlink($fileName);
+        }
+    }
+
+    private function updateProfilePicture(User $user, ?string $email, ?UploadedFile $profilePictureFile) : void {
+        if($email != null && $profilePictureFile == null) {
+            $oldFileName = $this->profilePictureDirectory . DIRECTORY_SEPARATOR . $user->getProfilePictureName();
+            $extension = pathinfo($oldFileName, PATHINFO_EXTENSION);
+            $newName = md5($user->getEmail()) . '.' . $extension;
+            if (file_exists($oldFileName) && $user->getProfilePictureName() !=null) {
+                $newFile = fopen($this->profilePictureDirectory . DIRECTORY_SEPARATOR . $newName, 'w');
+                $oldFile = fopen($oldFileName, 'r');
+                stream_copy_to_stream($oldFile, $newFile);
+                fclose($oldFile);
+                fclose($newFile);
+                unlink($oldFileName);
+                $user->setProfilePictureName($newName);
+            }
+        }
+        if($profilePictureFile != null) {
+            $oldFileName = $this->profilePictureDirectory . DIRECTORY_SEPARATOR . $user->getProfilePictureName();
+            if (file_exists($oldFileName) && $user->getProfilePictureName() !=null) {
+                unlink($oldFileName);
+            }
+            $this->saveProfilePicture($user, $profilePictureFile);
+        }
+    }
+
+    public function updateUser(User $user, ?string $email, ?string $newPlainPassword, ?UploadedFile $profilePictureFile) : void {
+        if ($newPlainPassword !== null) {
+            $this->hashPassword($user, $newPlainPassword);
+        }
+        $this->updateProfilePicture($user, $email, $profilePictureFile);
+    }
+
+
+
 }

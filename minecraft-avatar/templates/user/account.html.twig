@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}{{ email }}{% endblock %}
+
+{% block page_content %}
+    <main>
+        <div class="center">
+            <p id="account-title">{{ email }}</p>
+        </div>
+
+        {{ form_start(form, {'attr': {'class': 'center basic-form'}}) }}
+        <fieldset>
+            <legend>Account</legend>
+            <div class="access-container">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email , {'required' : ''}) }}
+            </div>
+            <div class="access-container">
+                {{ form_label(form.newPlainPassword) }}
+                <p class="help-input-form">Must contain atleast a digit, a lowercase and an uppercase and be between 8 and 30 characters</p>
+                {{ form_widget(form.newPlainPassword, {'required' : ''}) }}
+            </div>
+            <div class="access-container">
+                {{ form_label(form.profilePictureFile) }}
+                {{ form_widget(form.profilePictureFile, {'required' : '', 'attr' : {'accept' : 'image/png, image/jpeg'}}) }}
+            </div>
+            {{ form_widget(form.edit, {'label': 'Save', 'attr': {'class': 'basic-form-submit'}}) }}
+        </fieldset>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+        <form method="post" action='{{ path('logout') }}'>
+            <button onclick="deleteAccount()" class="basic-form-submit">Delete account</button>
+        </form>
+    </main>
+    <script>
+        async function deleteAccount() {
+            const response = await fetch('/account', {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                window.location.href = '/login';
+            }
+        }
+    </script>
+{% endblock %}
