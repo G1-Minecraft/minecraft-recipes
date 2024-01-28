@@ -20,7 +20,12 @@ class UserController extends AbstractController
 {
     #[Route('/', name: 'home', methods: ['GET'])]
     public function homePage(Request $request){
-        return $this->render('base.html.twig');
+        if($this->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('account');
+        }
+        else{
+            return $this->redirectToRoute('login');
+        }
     }
 
     #[Route('/register', name: 'register', methods: ['GET','POST'])]
@@ -69,6 +74,9 @@ class UserController extends AbstractController
                             FlashMessageHelperInterface $flashMessageHelper,
                             UserManagerInterface $utilisateurManager,
                             UserRepository $userRepository, SessionInterface $session): Response{
+        if($this->getUser() == null || $this->getUser()->getUserIdentifier() == null){
+            return $this->redirectToRoute("login");
+        }
         $userId = $this->getUser()->getUserIdentifier();
         $user = null;
         if($userId !=null){
