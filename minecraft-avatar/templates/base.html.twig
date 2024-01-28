@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>{% block page_title %}Home{% endblock %}</title>
+    <title>{% block page_title %}My Avatar{% endblock %}</title>
     <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <div id="title" class="center">
+    <div id="avatar-title">
         <a href=""><span>My Avatar</span></a>
         <nav>
             <a href="{{ path('home') }}">Home</a>
@@ -19,7 +19,7 @@
             {% else %}
                 <a href="{{ path('account') }}">Account</a>
                 <form method="post" action='{{ path('logout') }}'>
-                    <button id="btn-logout">Logout</button>
+                    <button class="nav-link">Logout</button>
                 </form>
             {% endif %}
         </nav>
