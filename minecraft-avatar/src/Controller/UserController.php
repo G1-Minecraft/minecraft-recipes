@@ -111,7 +111,7 @@ class UserController extends AbstractController
             $this->addFlash('success','Account deleted successfully');
             return $redirection;
         }
-        return $this->render('user/account.html.twig', ["form"=> $form, "email"=> $user->getUserIdentifier()]);
+        return $this->render('user/account.html.twig', ["form"=> $form, "email"=> $user->getUserIdentifier(), "profilePictureName"=> $user->getProfilePictureName()]);
     }
 
 }

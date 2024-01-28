@@ -2,19 +2,19 @@
 {% block page_title %}Register{% endblock %}
 {% block page_content %}
     <main>
-        {{ form_start(form, {'attr': {'class': 'center basic-form'}}) }}
+        {{ form_start(form, {'attr': {'class': 'basic-form'}}) }}
         <fieldset>
             <legend>Register</legend>
-            <div class="access-container">
+            <div>
                 {{ form_label(form.email) }}
                 {{ form_widget(form.email) }}
             </div>
-            <div class="access-container">
+            <div>
                 {{ form_label(form.plainPassword) }}
                 <p class="help-input-form">Must contain atleast a digit, a lowercase and an uppercase and be between 8 and 30 characters</p>
                 {{ form_widget(form.plainPassword) }}
             </div>
-            <div class="access-container">
+            <div>
                 {{ form_label(form.profilePictureFile) }}
                 {{ form_widget(form.profilePictureFile, {'required' : '', 'attr' : {'accept' : 'image/png, image/jpeg'}}) }}
             </div>
