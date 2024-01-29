@@ -60,11 +60,11 @@ Pour récupérer un avatar il suffit donc d'effectuer une requête en get vers u
 
 ## Investissement
 
-- Hugo du Peloux: architecture globale, dockerisation, base de données et API
+- Hugo du Peloux: Architecture globale, Dockerisation, Base de données et API
 - Hugo Siliveri: Maquette du site, page d'accueil et style
-- Alexandre Machu: Footer/header front
+- Alexandre Machu: Footer/header, page de connexion/inscription et liaison entre front et MyAvatar
 - Lucas Jalbaud: Utilisateur (en partie), création de crafts et items dans le front 
-- Benjamin Cayroche: My Avatar
+- Benjamin Cayroche: MyAvatar
 
 ## Identifiants
 
