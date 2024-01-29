@@ -2,7 +2,12 @@
 
 ## Hébergement
 
-//TODO: héberger le projet sur le serveur de l'IUT
+Le projet est hébergé sur le serveur de l'IUT aux adresses suivants :
+- API : https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-api/api
+- Front : https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-front
+- MyAvatar : https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-avatar
+
+Il est aussi possible de lancer le projet en local en [suivant les instructions ci-dessous](#utiliser-lapplication-en-local)
 
 ## Repo git
 
