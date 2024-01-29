@@ -31,7 +31,7 @@ L'alchimie est un mécanisme plus avancé consistant a mélanger des ingrédient
 
 Dans l'objectif d'avoir un système de recettes généralise, notre API contient plusieurs entités.
 
-- les Items: ingrédients de bases ou résultants.
+- les Items: ingrédients de bases ou résultants. Il est aussi possible d'ajouter une texture aux items.
 - les Crafts: entité conservant les informations sur l'item résultant ainsi que sa quantité.
 - les CraftSlots: entité possédant les informations d'un item utilisé lors d'un craft ainsi que sa position dans le craft.
 - les Users: notre système d'utilisateurs avec authentification et retenant les items et crafts créées.
