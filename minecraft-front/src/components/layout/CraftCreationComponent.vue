@@ -4,9 +4,10 @@ import ItemsListComponent from "@/components/layout/ItemsListComponent.vue";
 </script>
 
 <template>
-  <h1>Création de craft</h1>
-  <HomeMainComponent></HomeMainComponent>
-  <ItemsListComponent></ItemsListComponent>
+  <div class="craft">
+    <HomeMainComponent />
+    <ItemsListComponent />
+  </div>
   <button type="submit" class="minecraftBtn">Envoyer</button>
 </template>
 
@@ -22,6 +23,11 @@ button {
   width: 20%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.craft{
+  display: flex;
+
 }
 
 </style>

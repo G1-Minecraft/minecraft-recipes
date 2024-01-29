@@ -63,6 +63,7 @@ main {
   display: flex;
   flex-direction: column;
   width: 70%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.75);
   text-align: center;
   justify-content: center;
