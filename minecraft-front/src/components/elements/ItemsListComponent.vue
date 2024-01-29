@@ -67,7 +67,7 @@
 
     const balise = `
             <div :key="${item.name}" class="item">
-                <img style="width: 70%" src="/src/assets/images/items/${item.textureName}.png" alt="Item" />
+                <img style="width: 70%" src="http://localhost:8210/uploads/${item.textureName}" alt="Item" />
             </div>
         `;
 
@@ -93,7 +93,7 @@
   <div>
     <div class="itemContainer">
       <div v-for="item in displayedItems" :key="item.name" class="item" @click="placeItemInTable(item)">
-        <img :src="'/src/assets/images/items/'+ item.textureName + '.png'" alt="Item" />
+        <img :src="'http://localhost:8210/uploads/'+ item.textureName" alt="Item" />
       </div>
     </div>
     <div class="pagination">
