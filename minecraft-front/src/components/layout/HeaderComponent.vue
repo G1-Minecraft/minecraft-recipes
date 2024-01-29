@@ -11,11 +11,11 @@
   }
 
   function test(){
-    console.log(storeAuthentification.JWT)
+    console.log(storeAuthentification.data.email)
   }
 
   const url2 = ref("https://i.pinimg.com/736x/e5/fc/d2/e5fcd217ee9df4e5b4895578e59407a3.jpg");
-  //const url = ref("https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-avatar/avatar/" + md5(storeAuthentification.JWT) + ".png");
+  //const url = ref("https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-avatar/avatar/" + md5(storeAuthentification.data.email) + ".png");
 </script>
 
 <template>
@@ -27,8 +27,8 @@
       <div class="infos">
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'connexion'})">Connexion</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'register'})">Inscription</div>
-        <div v-if="!storeAuthentification.estConnecte" class="text" @click="test()">Test</div>
-        <div v-if="!storeAuthentification.estConnecte">
+        <div class="text" @click="test()">Test</div>
+        <div v-if="storeAuthentification.estConnecte">
             <img :src="url2" alt="Photo de profil de l'utilisateur">
         </div>
         <div v-if="storeAuthentification.estConnecte" class="text" @click="logout()">Deconnexion</div>
