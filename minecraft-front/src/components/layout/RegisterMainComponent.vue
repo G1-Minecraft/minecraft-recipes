@@ -10,19 +10,30 @@ import router from "@/router";
 const registerUser = ref({
   login: '',
   password: '',
+  passwordConfirm: '',
   email: ''
 });
 
 
 function register(): void{
-  storeAuthentification.inscription(registerUser.value.login, registerUser.value.password, registerUser.value.email,
-      () => { router.push('/connexion') },
-      () => {
-        registerUser.value.login = "";
-        registerUser.value.password = "";
-        registerUser.value.email = "";
-      },
-  );
+  if (!checkPassword()){
+    alert("Les mots de passe ne sont pas identiques");
+    return;
+  }
+  else{
+    storeAuthentification.inscription(registerUser.value.login, registerUser.value.password, registerUser.value.email,
+        () => { router.push('/connexion') },
+        () => {
+          registerUser.value.login = "";
+          registerUser.value.password = "";
+          registerUser.value.email = "";
+        },
+    );
+  }
+}
+
+function checkPassword(): boolean{
+  return registerUser.value.password === registerUser.value.passwordConfirm;
 }
 
 const connexionTest = 'Inscription'
@@ -52,9 +63,9 @@ const connexionTest = 'Inscription'
           </div>
         </div>
         <div class="group">
-          <label for="password">Confirmer le mot de passe</label>
+          <label for="passwordConfirm">Confirmer le mot de passe</label>
           <div class="inputBar">
-            <input class="minecraftBtn" v-model="registerUser.password" type="password" name="password2" required>
+            <input class="minecraftBtn" v-model="registerUser.passwordConfirm" type="password" name="passwordConfirm" id="passwordConfirm" required>
           </div>
         </div>
       </div>
@@ -97,5 +108,6 @@ const connexionTest = 'Inscription'
 
   input {
     height: 25px;
+    color: white;
   }
 </style>

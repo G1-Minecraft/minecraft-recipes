@@ -78,6 +78,7 @@ main{
 
 input {
  height: 25px;
+  color: white;
 }
 
 
