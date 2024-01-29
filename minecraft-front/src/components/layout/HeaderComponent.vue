@@ -11,6 +11,8 @@
         <img src="@/assets/images/minecraft-crafting-table.png" alt="logo" @click="router.push({name: 'home'})" />
       </div>
       <div class="infos">
+        <div v-if="storeAuthentification.estConnecte" class="text" @click="router.push({name: 'items'})">Créer un item</div>
+        <div v-if="storeAuthentification.estConnecte" class="text" @click="router.push({name: 'crafts'})">Créer un craft</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'connexion'})">Connexion</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'register'})">Inscription</div>
       </div>
@@ -30,26 +32,36 @@ nav {
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 img{
   width: 50px;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .imgAccueil {
   display: flex;
   align-items: center;
   padding-left: 2%;
+  width: 10%;
 }
 
 .infos {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   align-items: center;
-  width: 20%;
+  width: 90%;
+}
+
+.infos div {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.infos div:hover {
+  color: yellow;
 }
 
 .text{
