@@ -41,5 +41,10 @@ export const storeAuthentification = reactive({
                 }
             )
             .catch(() => echec());
+    },
+    deconnexion(){
+        this.JWT = ""
+        localStorage.removeItem('JWT');
+        this.estConnecte = false
     }
 });

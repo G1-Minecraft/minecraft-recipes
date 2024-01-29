@@ -1,7 +1,21 @@
 <script setup lang="ts">
+  import { ref } from 'vue';
   import { useRouter } from 'vue-router'
   import {storeAuthentification} from "@/store/storeAuthentification";
+
   const router = useRouter()
+
+  function logout() {
+    storeAuthentification.deconnexion();
+    router.push({name: 'home'});
+  }
+
+  function test(){
+    console.log(storeAuthentification.JWT)
+  }
+
+  const url2 = ref("https://i.pinimg.com/736x/e5/fc/d2/e5fcd217ee9df4e5b4895578e59407a3.jpg");
+  //const url = ref("https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-avatar/avatar/" + md5(storeAuthentification.JWT) + ".png");
 </script>
 
 <template>
@@ -15,6 +29,11 @@
         <div v-if="storeAuthentification.estConnecte" class="text" @click="router.push({name: 'crafts'})">Créer un craft</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'connexion'})">Connexion</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'register'})">Inscription</div>
+        <div v-if="!storeAuthentification.estConnecte" class="text" @click="test()">Test</div>
+        <div v-if="!storeAuthentification.estConnecte">
+            <img :src="url2" alt="Photo de profil de l'utilisateur">
+        </div>
+        <div v-if="storeAuthentification.estConnecte" class="text" @click="logout()">Deconnexion</div>
       </div>
     </nav>
   </header>
