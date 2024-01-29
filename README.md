@@ -8,6 +8,9 @@
 
 Tous les projets ont été créés sur le même repo git dont voici le lien: https://github.com/G1-Minecraft/minecraft-recipes
 
+La maquette Figma du site est disponible à cette adresse:
+https://www.figma.com/file/sF9B8Hfis3CBfcBSZhrRWN/Front?type=design&node-id=16%3A2&mode=design&t=YHOu9PTaeYPSuqL2-1
+
 ## Thème
 
 Nous avons choisi le thème des recettes (crafts) de Minecraft, c'est le système permettant de creer de nouveaux items ou blocks afin de progresser dans le jeux.
@@ -30,7 +33,12 @@ Dans l'objectif d'avoir un système de recettes généralise, notre API contient
 
 ## Front
 
-//TODO: description du projet front
+L'application VueJS utilise l'API pour les échanges de données avec la base données et MyAvatar pour l'image de l'utilisateur.
+
+Le front dispose :
+- Une page d'accueil avec la possibilité de voir les crafts des items à partir d'une table de craft (dans le futur on rajoutera les crafts via fours et alambiques).
+- Une page de connexion et inscription pour les utilisateurs
+- Une page de création d'items et de crafts
 
 ## MyAvatar
 
@@ -48,9 +56,9 @@ Pour récupérer un avatar il suffit donc d'effectuer une requête en get vers u
 ## Investissement
 
 - Hugo du Peloux: architecture globale, dockerisation, base de données et API
-- Hugo Siliveri: 
-- Alexandre Machu: 
-- Lucas Jalbaud: 
+- Hugo Siliveri: Maquette du site, page d'accueil et style
+- Alexandre Machu: Footer/header front
+- Lucas Jalbaud: Utilisateur (en partie), création de crafts et items dans le front 
 - Benjamin Cayroche: My Avatar
 
 ## Identifiants
