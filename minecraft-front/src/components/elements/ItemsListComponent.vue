@@ -97,9 +97,9 @@
       </div>
     </div>
     <div class="pagination">
-      <button class="minecraftBtn" @click="prevPage" :disabled="currentPage === 1">Prev</button>
+      <button class="minecraftBtn" @click="prevPage" :disabled="currentPage === 1">Prec.</button>
       <span>{{ currentPage }}</span>
-      <button class="minecraftBtn" @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+      <button class="minecraftBtn" @click="nextPage" :disabled="currentPage === totalPages">Suiv.</button>
     </div>
   </div>
 </template>
