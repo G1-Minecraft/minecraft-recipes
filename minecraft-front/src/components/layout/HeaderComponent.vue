@@ -2,6 +2,7 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router'
   import {storeAuthentification} from "@/store/storeAuthentification";
+  import * as CryptoJS from 'crypto-js';
 
   const router = useRouter()
 
@@ -10,12 +11,12 @@
     router.push({name: 'home'});
   }
 
-  function test(){
-    console.log(storeAuthentification.data.email)
+  function encodeMD5(message: string): string {
+    const hash = CryptoJS.MD5(message);
+    return hash.toString();
   }
 
-  const url2 = ref("https://i.pinimg.com/736x/e5/fc/d2/e5fcd217ee9df4e5b4895578e59407a3.jpg");
-  //const url = ref("https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-avatar/avatar/" + md5(storeAuthentification.data.email) + ".png");
+  const url = ref("http://localhost:8230/avatar/" + encodeMD5(storeAuthentification.data.email));
 </script>
 
 <template>
@@ -29,9 +30,8 @@
         <div v-if="storeAuthentification.estConnecte" class="text" @click="router.push({name: 'crafts'})">Créer un craft</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'connexion'})">Connexion</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'register'})">Inscription</div>
-        <div class="text" @click="test()">Test</div>
         <div v-if="storeAuthentification.estConnecte">
-            <img :src="url2" alt="Photo de profil de l'utilisateur">
+            <img :src="url" alt="Photo de profil de l'utilisateur">
         </div>
         <div v-if="storeAuthentification.estConnecte" class="text" @click="logout()">Deconnexion</div>
       </div>
