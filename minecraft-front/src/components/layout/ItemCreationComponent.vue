@@ -25,7 +25,7 @@ export default {
         craftSlots: []
       }
 
-      await fetch("http://localhost:8210/api/items", {
+      await fetch("https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-api/api/items", {
         method: "POST",
         headers: {
           'Content-Type': 'application/ld+json'
