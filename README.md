@@ -74,3 +74,45 @@ Pour récupérer un avatar il suffit donc d'effectuer une requête en get vers u
 
 Le projet étants entièrement dockerisé par un système de docker compose, il suffit juste de mettre à jour les valeurs (principalement les mots de passe) dans le fichier `docker-compose.yml` (ou de créer un `docker-compose.override.yml`) et d'exécuter la commande `docker compose up -d` pour démarrer l'ensemble des applications.
 Par défaut, les images de production seront utilisées, mais il est possible en changeant les valeurs des images dans le `docker-compose.yml` (ou le `.override.yml`) d'utiliser les images de dev qui montent un volume sur les projets pour pouvoir tester les changements en direct.
+En cas d'utilisation de l'application en mode des, il faut aussi executer la commande `php bin/console lexik:jwt:generate-keypair` afin de generer les identifiants necessaire pour la creation des tokens JWT.
+
+voici un template de `docker-compose.override.yml`
+```yml
+services:
+  minecraft-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD={{ApiDatabasePassword}}
+    healthcheck:
+      test: "mysql -p{{ApiDatabasePassword}} -e 'SELECT 1'"
+
+  minecraft-api:
+    image: minecraft-api-dev
+    build:
+      dockerfile: dev.dockerfile
+      args:
+        - DATABASE_PASSWORD={{ApiDatabasePassword}}
+    volumes:
+      - ./minecraft-api:/home/minecraft-api
+
+  minecraft-front:
+    image: minecraft-front-dev
+    build:
+      dockerfile: dev.dockerfile
+    volumes:
+      - ./minecraft-front:/home/minecraft-front
+
+  minecraft-avatar:
+    image: minecraft-avatar-dev
+    build:
+      dockerfile: dev.dockerfile
+      args:
+        - DATABASE_PASSWORD={{AvatarDatabasePassword}}
+    volumes:
+      - ./minecraft-avatar:/home/minecraft-avatar
+
+  minecraft-avatar-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD={{AvatarDatabasePassword}}
+    healthcheck:
+      test: "mysql -p{{AvatarDatabasePassword}} -e 'SELECT 1'"
+```
