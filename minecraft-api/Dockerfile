@@ -11,14 +11,12 @@ ARG DATABASE_PASSWORD=changeme
 ARG DATABASE_HOST=database
 ARG DATABASE_PORT=3306
 ARG DATABASE_DB=mysql
-ARG JWT_PASSPHRASE=changeme
 
 #envs
 ENV APP_HOME=${APP_HOME:-'/home'}
 ENV DATABASE_URL "mysql://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST:$DATABASE_PORT/$DATABASE_DB?serverVersion=mariadb-10.11.5"
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV APP_ENV prod
-ENV JWT_PASSPHRASE=$JWT_PASSPHRASE
 
 #apache config
 RUN sed -ri -e 's!/var/www/html!${APP_HOME}/public!g' /etc/apache2/sites-available/*.conf
@@ -36,3 +34,5 @@ COPY . .
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 RUN chmod +x /usr/bin/composer
 RUN composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader
+
+CMD php bin/console lexik:jwt:generate-keypair & apache2-foreground
