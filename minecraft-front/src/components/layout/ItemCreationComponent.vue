@@ -9,7 +9,7 @@ export default {
     };
   },
   methods: {
-    onFileChange(e) {
+    onFileChange(e: Event) {
       this.file = e.target.files[0];
       if (this.file) {
         this.previewUrl = URL.createObjectURL(this.file);
