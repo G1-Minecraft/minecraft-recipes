@@ -4,12 +4,20 @@
   import InputSubmitComponent from "@/components/elements/form/InputSubmitComponent.vue";
 
   import {ref} from 'vue';
+  import {storeAuthentification} from "@/store/storeAuthentification";
+  import router from "@/router";
   const connectingUser = ref({
     login: '',
     password: ''
   });
-  function connect():void{
-    console.log(connectingUser.value);
+  function connect(): void{
+    storeAuthentification.connexion(connectingUser.value.login, connectingUser.value.password,
+        () => { router.push('/') },
+        () => {
+          connectingUser.value.login = "";
+          connectingUser.value.password = "";
+        },
+    );
   }
 
   const connexionTest = 'Connexion'

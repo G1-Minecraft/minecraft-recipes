@@ -5,13 +5,24 @@ import InputSubmitComponent from "@/components/elements/form/InputSubmitComponen
 import InputPasswordComponent from "@/components/elements/form/InputPasswordComponent.vue";
 
 import {ref} from 'vue';
+import {storeAuthentification} from "@/store/storeAuthentification";
+import router from "@/router";
 const registerUser = ref({
   login: '',
   password: '',
   email: ''
 });
-function connect():void{
-  console.log(registerUser.value);
+
+
+function register(): void{
+  storeAuthentification.inscription(registerUser.value.login, registerUser.value.password, registerUser.value.email,
+      () => { router.push('/connexion') },
+      () => {
+        registerUser.value.login = "";
+        registerUser.value.password = "";
+        registerUser.value.email = "";
+      },
+  );
 }
 
 const connexionTest = 'Inscription'
@@ -20,7 +31,7 @@ const connexionTest = 'Inscription'
 
 <template>
   <main>
-    <form @submit.prevent="connect">
+    <form @submit.prevent="register">
       <div class="inputs">
         <div class="group">
           <label for="name">Nom d'utilisateur</label>
