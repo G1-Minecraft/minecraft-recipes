@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use App\Controller\UploadTextureController;
 use App\Repository\ItemRepository;
 use App\State\CreatorProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,7 +21,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new GetCollection(),
     new Get(),
     new Post(denormalizationContext: ['groups'=>['item:create']], security: "is_granted('ROLE_USER')", processor: CreatorProcessor::class),
-    new Delete(security: "is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getCreator() == user)")
+    new Delete(security: "is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getCreator() == user)"),
+    new Post(uriTemplate: "/items/{id}/upload_texture", controller: UploadTextureController::class, deserialize: false)
 ], normalizationContext: ["groups"=>["item:read"]])]
 class Item
 {
