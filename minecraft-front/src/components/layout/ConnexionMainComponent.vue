@@ -11,7 +11,6 @@
     password: ''
   });
   function connect(): void{
-    console.log(connectingUser.value.login, connectingUser.value.password)
     storeAuthentification.connexion(connectingUser.value.login, connectingUser.value.password,
         () => { router.push('/') },
         () => {

@@ -35,19 +35,27 @@ const connexionTest = 'Inscription'
       <div class="inputs">
         <div class="group">
           <label for="name">Nom d'utilisateur</label>
-          <InputTextComponent v-model="registerUser.login" name="name" id="name" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="registerUser.login" type="text" name="name" id="name" required>
+          </div>
         </div>
         <div>
           <label for="email">Email</label>
-          <InputTextComponent v-model="registerUser.email" name="email" id="email" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="registerUser.email" type="text" name="email" id="mail">
+          </div>
         </div>
         <div class="group">
           <label for="password">Mot de passe</label>
-          <InputPasswordComponent v-model="registerUser.password" name="password" id="password" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="registerUser.password" type="password" name="password" id="password" required>
+          </div>
         </div>
         <div class="group">
           <label for="password">Confirmer le mot de passe</label>
-          <InputPasswordComponent v-model="registerUser.password" name="password" id="password" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="registerUser.password" type="password" name="password2" required>
+          </div>
         </div>
       </div>
       <div>
@@ -85,5 +93,9 @@ const connexionTest = 'Inscription'
     display: flex;
     flex-direction: column;
     width: 70%;
+  }
+
+  input {
+    height: 25px;
   }
 </style>
