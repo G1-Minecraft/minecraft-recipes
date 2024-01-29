@@ -11,6 +11,7 @@
     password: ''
   });
   function connect(): void{
+    console.log(connectingUser.value.login, connectingUser.value.password)
     storeAuthentification.connexion(connectingUser.value.login, connectingUser.value.password,
         () => { router.push('/') },
         () => {
@@ -29,11 +30,15 @@
       <div class="inputs">
         <div class="group">
           <label for="name">Nom d'utilisateur</label>
-          <InputTextComponent v-model="connectingUser.login" name="name" id="name" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="connectingUser.login" type="text" name="name" id="name" required>
+          </div>
         </div>
         <div class="group">
           <label for="password">Mot de passe</label>
-          <InputPasswordComponent v-model="connectingUser.password" name="password" id="password" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="connectingUser.password" type="password" name="password" id="password" required>
+          </div>
         </div>
       </div>
       <div>
@@ -70,6 +75,10 @@ main{
   display: flex;
   flex-direction: column;
   width: 70%;
+}
+
+input {
+ height: 25px;
 }
 
 
