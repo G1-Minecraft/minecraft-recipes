@@ -5,7 +5,7 @@ export interface CraftState {
 
 export interface Item {
     name: string,
-    textureName: string,
+    textureName: string|null,
     crafts: Craft[],
     craftSlots: CraftSlots[]
 }

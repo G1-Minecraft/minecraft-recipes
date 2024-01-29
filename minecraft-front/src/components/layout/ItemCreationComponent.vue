@@ -9,7 +9,8 @@ export default {
     };
   },
   methods: {
-    onFileChange(e: Event) {
+    onFileChange(e: any) {
+
       this.file = e.target.files[0];
       if (this.file) {
         this.previewUrl = URL.createObjectURL(this.file);
@@ -20,7 +21,7 @@ export default {
     async submitForm() {
       const item: Item = {
         name: this.name,
-        textureName: this.file.name,
+        textureName: this.file ? this.file.name : '',
         crafts: [],
         craftSlots: []
       }
