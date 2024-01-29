@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
+  import {storeAuthentification} from "@/store/storeAuthentification";
   const router = useRouter()
 </script>
 
@@ -10,8 +11,8 @@
         <img src="@/assets/images/minecraft-crafting-table.png" alt="logo" @click="router.push({name: 'home'})" />
       </div>
       <div class="infos">
-        <div class="text" @click="router.push({name: 'connexion'})">Connexion</div>
-        <div class="text" @click="router.push({name: 'register'})">Inscription</div>
+        <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'connexion'})">Connexion</div>
+        <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'register'})">Inscription</div>
       </div>
     </nav>
   </header>

@@ -5,13 +5,35 @@ import InputSubmitComponent from "@/components/elements/form/InputSubmitComponen
 import InputPasswordComponent from "@/components/elements/form/InputPasswordComponent.vue";
 
 import {ref} from 'vue';
+import {storeAuthentification} from "@/store/storeAuthentification";
+import router from "@/router";
 const registerUser = ref({
   login: '',
   password: '',
+  passwordConfirm: '',
   email: ''
 });
-function connect():void{
-  console.log(registerUser.value);
+
+
+function register(): void{
+  if (!checkPassword()){
+    alert("Les mots de passe ne sont pas identiques");
+    return;
+  }
+  else{
+    storeAuthentification.inscription(registerUser.value.login, registerUser.value.password, registerUser.value.email,
+        () => { router.push('/connexion') },
+        () => {
+          registerUser.value.login = "";
+          registerUser.value.password = "";
+          registerUser.value.email = "";
+        },
+    );
+  }
+}
+
+function checkPassword(): boolean{
+  return registerUser.value.password === registerUser.value.passwordConfirm;
 }
 
 const connexionTest = 'Inscription'
@@ -20,23 +42,31 @@ const connexionTest = 'Inscription'
 
 <template>
   <main>
-    <form @submit.prevent="connect">
+    <form @submit.prevent="register">
       <div class="inputs">
         <div class="group">
           <label for="name">Nom d'utilisateur</label>
-          <InputTextComponent v-model="registerUser.login" name="name" id="name" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="registerUser.login" type="text" name="name" id="name" required>
+          </div>
         </div>
         <div>
           <label for="email">Email</label>
-          <InputTextComponent v-model="registerUser.email" name="email" id="email" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="registerUser.email" type="text" name="email" id="mail">
+          </div>
         </div>
         <div class="group">
           <label for="password">Mot de passe</label>
-          <InputPasswordComponent v-model="registerUser.password" name="password" id="password" required />
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="registerUser.password" type="password" name="password" id="password" required>
+          </div>
         </div>
         <div class="group">
-          <label for="password">Confirmer le mot de passe</label>
-          <InputPasswordComponent v-model="registerUser.password" name="password" id="password" required />
+          <label for="passwordConfirm">Confirmer le mot de passe</label>
+          <div class="inputBar">
+            <input class="minecraftBtn" v-model="registerUser.passwordConfirm" type="password" name="passwordConfirm" id="passwordConfirm" required>
+          </div>
         </div>
       </div>
       <div>
@@ -74,5 +104,10 @@ const connexionTest = 'Inscription'
     display: flex;
     flex-direction: column;
     width: 70%;
+  }
+
+  input {
+    height: 25px;
+    color: white;
   }
 </style>
