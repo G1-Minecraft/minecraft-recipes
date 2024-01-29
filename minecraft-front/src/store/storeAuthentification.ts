@@ -70,6 +70,9 @@ export const storeAuthentification = reactive<Authentification>({
     },
     deconnexion(){
         this.JWT = ""
+        this.data = {
+            mail: ''
+        }
         localStorage.removeItem('JWT');
         this.estConnecte = false
     },
