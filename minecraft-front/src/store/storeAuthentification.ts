@@ -36,7 +36,7 @@ export const storeAuthentification = reactive({
             .catch(() => echec());
     },
     inscription(login: string, motDePasse: string, email:string, succes:()=>void, echec:()=>void){
-        fetch("https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-api/api/users", {
+        fetch("http://localhost:8210/api/users", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -56,6 +56,7 @@ export const storeAuthentification = reactive({
     },
     deconnexion(){
         this.JWT = ""
+        this.data = ""
         localStorage.removeItem('JWT');
         this.estConnecte = false
     },

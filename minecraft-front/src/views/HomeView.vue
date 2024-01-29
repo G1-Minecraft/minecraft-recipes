@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import HomeMainComponent from "@/components/layout/HomeMainComponent.vue";
+  import ItemsListComponent from "@/components/elements/ItemsListComponent.vue";
   import HomeAsideComponent from "@/components/layout/HomeAsideComponent.vue";
 </script>
 
