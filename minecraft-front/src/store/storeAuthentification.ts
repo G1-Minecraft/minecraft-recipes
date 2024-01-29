@@ -4,7 +4,7 @@ export const storeAuthentification = reactive({
     JWT: "",
     estConnecte: false,
     connexion(login: string, motDePasse: string, succes:()=>void, echec:()=>void): void{
-        fetch("http:/localhost:8210/public/api/auth", {
+        fetch("http://localhost:8210/api/auth", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const storeAuthentification = reactive({
             .catch(() => echec());
     },
     inscription(login: string, motDePasse: string, email:string, succes:()=>void, echec:()=>void){
-        fetch("http:/localhost:8210/public/api/users", {
+        fetch("http://localhost:8210/api/users", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
