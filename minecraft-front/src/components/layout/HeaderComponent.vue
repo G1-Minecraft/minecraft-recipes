@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+import {ref, watch} from 'vue';
   import { useRouter } from 'vue-router'
   import {storeAuthentification} from "@/store/storeAuthentification";
   import * as CryptoJS from 'crypto-js';
@@ -15,8 +15,9 @@
     const hash = CryptoJS.MD5(message);
     return hash.toString();
   }
+  const url = ref("http://localhost:8230/avatar/" + encodeMD5(storeAuthentification.mail));
 
-  const url = ref("http://localhost:8230/avatar/" + encodeMD5(storeAuthentification.data.mail));
+  watch(storeAuthentification, () => url.value = "http://localhost:8230/avatar/" + encodeMD5(storeAuthentification.mail))
 </script>
 
 <template>

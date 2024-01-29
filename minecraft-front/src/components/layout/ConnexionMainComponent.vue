@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import InputTextComponent from "@/components/elements/form/InputTextComponent.vue";
-  import InputPasswordComponent from "@/components/elements/form/InputPasswordComponent.vue";
   import InputSubmitComponent from "@/components/elements/form/InputSubmitComponent.vue";
 
   import {ref} from 'vue';
@@ -10,8 +8,8 @@
     login: '',
     password: ''
   });
-  function connect(): void{
-    storeAuthentification.connexion(connectingUser.value.login, connectingUser.value.password,
+  async function connect(): Promise<void>{
+    await storeAuthentification.connexion(connectingUser.value.login, connectingUser.value.password,
         () => { router.push('/') },
         () => {
           connectingUser.value.login = "";
