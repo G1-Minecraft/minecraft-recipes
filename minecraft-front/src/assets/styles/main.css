@@ -35,6 +35,10 @@ body {
   border-color: #BDC6FF #59639A #59639A #BDC6FF;
 }
 
+input {
+  color: white;
+}
+
 button {
   color: white;
   font-size: large;
