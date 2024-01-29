@@ -1,35 +1,21 @@
 import { reactive } from 'vue'
 
-interface Data{
-    mail : string
-}
-
-interface Authentification {
-    JWT: string,
-    data: Data,
-    estConnecte: boolean,
-    connexion(login: string, motDePasse: string, succes:()=>void, echec:()=>void): void,
-    inscription(login: string, motDePasse: string, email:string, succes:()=>void, echec:()=>void): void,
-    deconnexion(): void
-}
-
 function decodeToken(token: string) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+
     return JSON.parse(jsonPayload);
 }
 
-export const storeAuthentification = reactive<Authentification>({
+export const storeAuthentification = reactive({
     JWT: "",
-    data: {
-        mail: ''
-    },
+    mail: "",
     estConnecte: false,
-    connexion(login: string, motDePasse: string, succes:()=>void, echec:()=>void): void{
-        fetch( "http://localhost:8210/api/auth", {
+    async connexion(login: string, motDePasse: string, succes:()=>void, echec:()=>void): Promise<void>{
+        var reponse = await fetch( "http://localhost:8210/api/auth", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -39,15 +25,13 @@ export const storeAuthentification = reactive<Authentification>({
                 password: motDePasse
             })
         })
-            .then (reponse => reponse.json())
-            .then(values => {
-                    this.JWT = values.token
-                    this.data = decodeToken(this.JWT)
-                    this.estConnecte = true
-                    succes();
-                }
-            )
-            .catch(() => echec());
+        if(reponse.ok){
+            var json = await reponse.json()
+            this.JWT = json.token
+            this.estConnecte = true
+            var tokenDecoded = decodeToken(json.token)
+            this.mail = tokenDecoded.email
+        }
     },
     inscription(login: string, motDePasse: string, email:string, succes:()=>void, echec:()=>void){
         fetch("http://localhost:8210/api/users", {
@@ -70,9 +54,7 @@ export const storeAuthentification = reactive<Authentification>({
     },
     deconnexion(){
         this.JWT = ""
-        this.data = {
-            mail: ''
-        }
+        this.mail = ""
         localStorage.removeItem('JWT');
         this.estConnecte = false
     },
