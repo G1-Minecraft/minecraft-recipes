@@ -1,8 +1,11 @@
 <template>
   <div class="inputBar">
-    <input class="textMinecraftWebUIBlack" type="password">
+    <input class="minecraftBtn" type="password">
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<style scoped>
+input {
+  height: 25px;
+}
+</style>

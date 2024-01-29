@@ -11,9 +11,9 @@ import ConnexionMainComponent from "@/components/layout/ConnexionMainComponent.v
 <style scoped>
 .connexionView{
   display: flex;
-  padding: 2% 0;
   width: 100%;
   height: 100%;
+  align-items: center;
   justify-content: center;
 }
 </style>
