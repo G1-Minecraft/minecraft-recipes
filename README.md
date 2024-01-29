@@ -68,7 +68,10 @@ Pour récupérer un avatar il suffit donc d'effectuer une requête en get vers u
 
 ## Identifiants
 
-//TODO: créer un jeu de données et l'exporter en .sql puis ajouter les identifiants.
+Identifiants : 
+
+- "login": "admin",
+- "password": "Abcde123"
 
 ## Utiliser l'application en local
 
