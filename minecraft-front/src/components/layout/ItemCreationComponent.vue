@@ -3,8 +3,11 @@ import type {Item} from '@/types';
 export default {
   data() {
     return {
+      /** @type {string} */
       name: '',
-      file: null,
+      /** @type {File} */
+      file: new File([],""),
+      /** @type {string} */
       previewUrl: ''
     };
   },
@@ -21,7 +24,7 @@ export default {
     async submitForm() {
       const item: Item = {
         name: this.name,
-        textureName: this.file ? this.file.name : '',
+        textureName: this.file ? this.file.name : null,
         crafts: [],
         craftSlots: []
       }
