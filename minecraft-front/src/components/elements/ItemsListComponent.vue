@@ -9,7 +9,7 @@
   const searchQuery = ref('');
 
   onMounted(() => {
-    fetch("https://webinfo.iutmontp.univ-montp2.fr/~jalbaudl/minecraft-api/api/items")
+    fetch("http://localhost:8210/api/items")
       .then(reponsehttp => reponsehttp.json())
       .then(reponseJSON => {
         items.value = reponseJSON["hydra:member"];
