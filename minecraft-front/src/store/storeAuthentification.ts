@@ -1,18 +1,32 @@
 import { reactive } from 'vue'
 
+interface Data{
+    mail : string
+}
+
+interface Authentification {
+    JWT: string,
+    data: Data,
+    estConnecte: boolean,
+    connexion(login: string, motDePasse: string, succes:()=>void, echec:()=>void): void,
+    inscription(login: string, motDePasse: string, email:string, succes:()=>void, echec:()=>void): void,
+    deconnexion(): void
+}
+
 function decodeToken(token: string) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-
     return JSON.parse(jsonPayload);
-};
+}
 
-export const storeAuthentification = reactive({
+export const storeAuthentification = reactive<Authentification>({
     JWT: "",
-    data: "",
+    data: {
+        mail: ''
+    },
     estConnecte: false,
     connexion(login: string, motDePasse: string, succes:()=>void, echec:()=>void): void{
         fetch( "http://localhost:8210/api/auth", {
@@ -56,7 +70,6 @@ export const storeAuthentification = reactive({
     },
     deconnexion(){
         this.JWT = ""
-        this.data = ""
         localStorage.removeItem('JWT');
         this.estConnecte = false
     },

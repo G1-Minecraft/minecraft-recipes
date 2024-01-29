@@ -16,7 +16,7 @@
     return hash.toString();
   }
 
-  const url = ref("http://localhost:8230/avatar/" + encodeMD5(storeAuthentification.data.email));
+  const url = ref("http://localhost:8230/avatar/" + encodeMD5(storeAuthentification.data.mail));
 </script>
 
 <template>
