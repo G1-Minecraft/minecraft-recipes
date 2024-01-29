@@ -1,7 +1,22 @@
 <script setup lang="ts">
+  import { ref } from 'vue';
   import { useRouter } from 'vue-router'
   import {storeAuthentification} from "@/store/storeAuthentification";
+  import * as CryptoJS from 'crypto-js';
+
   const router = useRouter()
+
+  function logout() {
+    storeAuthentification.deconnexion();
+    router.push({name: 'home'});
+  }
+
+  function encodeMD5(message: string): string {
+    const hash = CryptoJS.MD5(message);
+    return hash.toString();
+  }
+
+  const url = ref("http://localhost:8230/avatar/" + encodeMD5(storeAuthentification.data.mail));
 </script>
 
 <template>
@@ -15,6 +30,10 @@
         <div v-if="storeAuthentification.estConnecte" class="text" @click="router.push({name: 'crafts'})">Créer un craft</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'connexion'})">Connexion</div>
         <div v-if="!storeAuthentification.estConnecte" class="text" @click="router.push({name: 'register'})">Inscription</div>
+        <div v-if="storeAuthentification.estConnecte">
+            <img :src="url" alt="Photo de profil de l'utilisateur">
+        </div>
+        <div v-if="storeAuthentification.estConnecte" class="text" @click="logout()">Deconnexion</div>
       </div>
     </nav>
   </header>
